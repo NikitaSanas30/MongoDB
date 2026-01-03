@@ -1,7 +1,8 @@
 "use client";
 
 import { useState } from "react";
-
+import { useActionState } from "react";
+import { getData } from "./formdata/getdata";
 export default function Home() {
   // const [formData, setFormData] = useState({
   //   name: "",
@@ -22,10 +23,16 @@ export default function Home() {
   //   alert("Form Submitted ");
   // };
 
+  const initialState = { success: false };
+
+  const [state, formAction] = useActionState(getData, initialState);
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100">
-      <form className="bg-black p-6 rounded-xl shadow-md w-full max-w-md">
-        <h2 className="text-2xl font-semibold text-center mb-6">Simple Form</h2>
+      <form
+        action={formAction}
+        className="bg-black p-6 rounded-xl shadow-md w-full max-w-md"
+      >
+        <h2 className="text-2xl font-semibold text-center mb-6">Form</h2>
 
         {/* Name */}
         <div className="mb-4">
@@ -59,8 +66,8 @@ export default function Home() {
           <input
             type="password"
             name="password"
-              // value={formData.password}
-              // onChange={handleChange}
+            // value={formData.password}
+            // onChange={handleChange}
             placeholder="Enter password"
             className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
